@@ -1,70 +1,33 @@
-# Getting Started with Create React App
+# React-Virtualize
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+So many elements in the DOM can cause two problems:
 
-## Available Scripts
+- Slow initial rendering
+- Laggy scrolling
 
-In the project directory, you can run:
+> How does react-virtualized work?
 
-### `npm start`
+**rendering only what is visible**, this one is the same as List Adapter in Android
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. They calculate which items are visible inside the area where the list is displayed (the viewport).
+2. They use a container (div) with relative positioning to absolute position the children elements inside of it by controlling its top, left, width and height style properties.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Important HOC for this article
 
-### `npm test`
+- **ArrowKeyStepper**. It decorates another component so it can respond to arrow-key events.
+- **AutoSizer**. It automatically adjusts the width and height of another component.
+- **CellMeasurer**. It automatically measures a cell’s contents by temporarily rendering it in a way that is not visible to the user.
+- **ColumnSizer**. It calculates column-widths for Grid cells.
+- **InfiniteLoader**. It manages the fetching of data as a user scrolls a List, Table, or Grid.
+- **MultiGrid**. It decorates a Grid component to add fixed columns and/or rows.
+- **ScrollSync**.It synchronizes scrolling between two or more components.
+- **WindowScroller**. It enables a Table or List component to be scrolled based on the window’s scroll positions.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Components like AutoSizer use a pattern named function as child components.**
 
-### `npm run build`
+    <AutoSizer>
+    ({ width, height }) => {
+    }
+    </AutoSizer>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**cannot share a CellMeausure cache between two components**
